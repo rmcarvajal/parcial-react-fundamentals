@@ -10,7 +10,7 @@ export const Digimon = () => {
     fetch ("https://digi-api.com/api/v1/digimon?pageSize=10")
     .then((res) => res.json())
     .then ((data) => setDigiList(data.content))
- })
+ },[])
 
     const addDigi = () => {
         if(newDigi === ''){
@@ -23,6 +23,10 @@ export const Digimon = () => {
         }
     }
 
+    const deleteDigi = (id) => {
+        const listFilter = digiList.filter((_,index) => index !== id)
+        setDigiList(listFilter)
+    }
 
     return(
         <div>
@@ -35,7 +39,7 @@ export const Digimon = () => {
         {digiList.map((digimon,index) => {
             return (
             <div key={index}>
-                <Digimoncard name={digimon.name} image={digimon.image} index={index}/>
+                <Digimoncard name={digimon.name} image={digimon.image} index={index} deleteDigi={deleteDigi}/>
             </div>
         )
 })}
